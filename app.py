@@ -17,7 +17,7 @@ st.markdown(
 )
 @st.cache_data
 def get_data():
-    return pd.read_parquet('C:\\Users\\yousu\\Desktop\\Python Projects\\Streamlit App\\raw_transaction_data.parquet')
+    return pd.read_parquet('raw_transaction_data.parquet')
 
 df = get_data().reset_index(drop=True)
 
