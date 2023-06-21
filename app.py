@@ -25,7 +25,7 @@ df = get_data().reset_index(drop=True)
 # Forms can be declared using the 'with' syntax
 
 # Getting the Unique Projects,Areas from the data and adding them onto a single variable
-projects_areas = ['All'] + df['Project'].unique().tolist() + df['Area'].unique().tolist()
+projects_areas = ['All'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
 projects = df['Project'].unique()
 areas = df['Area'].unique()
 # Getting the Unique Rooms from the data
