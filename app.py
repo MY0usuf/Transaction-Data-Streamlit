@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import os
 import datetime
-from schedule import every, repeat, run_pending
+from streamlit_autorefresh import st_autorefresh
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
@@ -14,6 +14,8 @@ from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
+
+st_autorefresh(interval = 10 * 60 * 60 * 1000, key="dataframerefresh")
 
 def extract_date(filename):
     date_str = filename.split("_")[1].split(".")[0]
@@ -114,6 +116,23 @@ st.markdown(
 )
 @st.cache_data
 def get_data():
+
+    files = os.listdir('transaction_csv')
+    dates = [extract_date(filename) for filename in files if "data_" in filename]
+
+    all_dates = set(   # Using this we can search upto 2 weeks from todays date
+    datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x)
+    for x in range((datetime.date.today() - (datetime.date.today() - datetime.timedelta(weeks=2))).days)
+    )
+    
+    missing_dates = sorted(all_dates - set(dates))
+    print(len(missing_dates))
+    for date in missing_dates:
+        if date.weekday() < 5:
+            print(date.strftime("%Y-%m-%d"))
+            download_transaction(base_url,download_dir,date)
+    
+    time.sleep(5)
     values = {'Transaction Number':0,'Transaction Date':0,'Property ID':0,'Transaction Type':'None','Transaction sub type':'None','Registration type':'None','Is Free Hold?':'None','Usage':'None','Area':'None','Property Type':'None','Property Sub Type':'None','Amount':0,'Transaction Size (sq.m)':0,'Property Size (sq.m)':0,'Property Size (sq.ft)':0,'Amount (sq.m)':0,'Amount (sq.ft)':0,'Room(s)':'None','Parking':'None','No. of Buyer':0,'No. of Seller':0,'Master Project':'None','Project':'None'}
 
     empty_list = []
@@ -152,24 +171,6 @@ def get_data():
     raw_data = raw_data.applymap(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
     return raw_data.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
     return pd.read_parquet('raw_transaction_data.parquet')
-
-@repeat(every().day.at('06:00'))
-def download_data():
-
-    files = os.listdir('transaction_csv')
-    dates = [extract_date(filename) for filename in files if "data_" in filename]
-
-    all_dates = set(   # Using this we can search upto 2 weeks from todays date
-    datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x)
-    for x in range((datetime.date.today() - (datetime.date.today() - datetime.timedelta(weeks=2))).days)
-    )
-    
-    missing_dates = sorted(all_dates - set(dates))
-    print(len(missing_dates))
-    for date in missing_dates:
-        if date.weekday() < 5:
-            print(date.strftime("%Y-%m-%d"))
-            download_transaction(base_url,download_dir,date)
 
 df = get_data().reset_index(drop=True)
 
@@ -256,7 +257,3 @@ with st.form(key='my_form', clear_on_submit = True):
             st.warning("No matching data found.")
         else:
             st.dataframe(matching_rows,width=2000, height=None)
-
-while True:
-    run_pending()
-    time.sleep(1)
