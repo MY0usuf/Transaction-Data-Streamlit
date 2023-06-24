@@ -4,3 +4,4 @@ streamlit-autorefresh
 numpy
 datetime
 selenium
+webdriver-manager
