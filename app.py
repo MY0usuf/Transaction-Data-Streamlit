@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 from datetime import datetime
 
 
@@ -17,6 +18,42 @@ st.markdown(
 )
 @st.cache_data
 def get_data():
+    values = {'Transaction Number':0,'Transaction Date':0,'Property ID':0,'Transaction Type':'None','Transaction sub type':'None','Registration type':'None','Is Free Hold?':'None','Usage':'None','Area':'None','Property Type':'None','Property Sub Type':'None','Amount':0,'Transaction Size (sq.m)':0,'Property Size (sq.m)':0,'Property Size (sq.ft)':0,'Amount (sq.m)':0,'Amount (sq.ft)':0,'Room(s)':'None','Parking':'None','No. of Buyer':0,'No. of Seller':0,'Master Project':'None','Project':'None'}
+
+    empty_list = []
+
+    for filename in os.listdir('transaction_csv/'):
+        if filename.endswith('.csv'):
+            print(filename)
+            df = pd.read_csv(os.path.join('transaction_csv/', filename), dtype={'Property ID':int, 'Amount':float, 'Transaction Size (sq.m)':float, 'Property Size (sq.m)':float,'No. of Buyer':int, 'No. of Seller':int, 'Project':str})
+            df.fillna(0)
+            df = df.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
+            empty_list.append(df)
+
+    raw_data = pd.concat(empty_list)
+
+    count_row = raw_data.shape[0]
+
+    size_list = [0]*count_row
+
+    raw_data.insert(14,"Property Size (sq.ft)",size_list,True)
+    raw_data.insert(15,"Amount (sq.m)",size_list,True)
+    raw_data.insert(16,"Amount (sq.ft)",size_list,True)
+
+    raw_data["Property Size (sq.ft)"] = raw_data["Property Size (sq.m)"] * 10.7639104167
+    raw_data["Amount (sq.m)"] = raw_data["Amount"] / raw_data["Property Size (sq.m)"]
+    raw_data["Amount (sq.ft)"] = raw_data["Amount"] / raw_data["Property Size (sq.ft)"]
+
+    raw_data['Transaction Date'] = pd.to_datetime(raw_data['Transaction Date']).dt.normalize()
+
+    raw_data.sort_values(by='Transaction Date', inplace = True)
+
+    raw_data.fillna(value = values, inplace = True)
+
+    raw_data['Area'] = raw_data['Area'].str.title()
+    raw_data['Project'] = raw_data['Project'].str.title()
+    raw_data = raw_data.applymap(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
+    return raw_data
     return pd.read_parquet('raw_transaction_data.parquet')
 
 df = get_data().reset_index(drop=True)
