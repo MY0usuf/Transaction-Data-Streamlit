@@ -27,7 +27,7 @@ def get_data():
             print(filename)
             df = pd.read_csv(os.path.join('transaction_csv/', filename), dtype={'Property ID':int, 'Amount':float, 'Transaction Size (sq.m)':float, 'Property Size (sq.m)':float,'No. of Buyer':int, 'No. of Seller':int, 'Project':str})
             df.fillna(0)
-            df = df.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
+            #df = df.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
             empty_list.append(df)
 
     raw_data = pd.concat(empty_list)
@@ -52,8 +52,9 @@ def get_data():
 
     raw_data['Area'] = raw_data['Area'].str.title()
     raw_data['Project'] = raw_data['Project'].str.title()
+    raw_data = raw_data
     raw_data = raw_data.applymap(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
-    return raw_data
+    return raw_data.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
     return pd.read_parquet('raw_transaction_data.parquet')
 
 df = get_data().reset_index(drop=True)
