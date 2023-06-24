@@ -62,7 +62,9 @@ df = get_data().reset_index(drop=True)
 # Forms can be declared using the 'with' syntax
 
 # Getting the Unique Projects,Areas from the data and adding them onto a single variable
-projects_areas = ['All'] + df['Project'].unique().tolist() + df['Area'].unique().tolist()
+projects_areas = ['All'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
+projects = df['Project'].unique()
+areas = df['Area'].unique()
 # Getting the Unique Rooms from the data
 rooms = ['All'] + df['Room(s)'].unique().tolist()
 # Getting the Unique Property Sub type from the data
@@ -105,7 +107,10 @@ with st.form(key='my_form', clear_on_submit = True):
         mask = pd.Series(np.ones(df.shape[0], dtype=bool))
 
         if project_area != 'All':
-            mask &= df['Project'] == project_area
+            if project_area in projects:
+                mask &= df['Project'] == project_area
+            elif project_area in areas:
+                mask &= df['Area'] == project_area
 
         if property_type != 'All':
             mask &= df['Property Type'] == property_type
