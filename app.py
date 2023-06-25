@@ -42,6 +42,7 @@ def download_transaction(base_url,download_dir,date):
     "pdfjs.disabled": True
     }
     )
+    
     options.add_argument("--start-maximized")
     options.add_argument("--disable-notifications") # to open the window fully
     #service = Service(executable_path=PATH)
