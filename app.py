@@ -35,7 +35,6 @@ PATH = os.getcwd() + chrome_file
 def get_driver(options):
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-@st.cache_data
 def download_transaction(base_url,download_dir,date):
     # Initialising the chrome webdriver by adding certain options 
     options = Options()
