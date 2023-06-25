@@ -32,8 +32,8 @@ transaction_dir = os.getcwd() + '\\transaction_csv'
 PATH = os.getcwd() + chrome_file
 
 @st.experimental_singleton
-def get_driver(options):
-    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+def get_driver(_options):
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=_options)
 
 def download_transaction(base_url,download_dir,date):
     # Initialising the chrome webdriver by adding certain options 
