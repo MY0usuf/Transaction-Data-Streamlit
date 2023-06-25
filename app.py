@@ -15,7 +15,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-st_autorefresh(interval = 10 * 60 * 60 * 1000, key="dataframerefresh")
+st_autorefresh(interval = 10 * 1000, key="dataframerefresh")
 
 def extract_date(filename):
     date_str = filename.split("_")[1].split(".")[0]
