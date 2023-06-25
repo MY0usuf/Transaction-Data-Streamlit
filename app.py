@@ -42,7 +42,7 @@ def download_transaction(base_url,download_dir,date):
     "pdfjs.disabled": True
     }
     )
-    
+
     options.add_argument("--start-maximized")
     options.add_argument("--disable-notifications") # to open the window fully
     #service = Service(executable_path=PATH)
@@ -115,7 +115,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+@st.cache_data
 def get_data():
 
     files = os.listdir('transaction_csv')
