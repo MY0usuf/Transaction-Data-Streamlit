@@ -34,8 +34,8 @@ PATH = os.getcwd() + chrome_file
 @st.cache_data
 def download_transaction(base_url,download_dir,date):
     # Initialising the chrome webdriver by adding certain options 
-    options = Options()
-    options.add_experimental_option('prefs',  {
+    chrome_options = Options()
+    chrome_options.add_experimental_option('prefs',  {
     "download.default_directory": download_dir,
     "download.prompt_for_download": False,
     "download.directory_upgrade": True,
@@ -43,10 +43,10 @@ def download_transaction(base_url,download_dir,date):
     "pdfjs.disabled": True
     }
     )
-    options.add_argument("--start-maximized")
-    options.add_argument("--disable-notifications") # to open the window fully
+    chrome_options.add_argument("--start-maximized")
+    chrome_options.add_argument("--disable-notifications") # to open the window fully
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(PATH, service=service, options=options) # Initialising the driver by giving out the PATH to chromedriver.exe
+    driver = webdriver.Chrome(PATH, service=service, options=chrome_options) # Initialising the driver by giving out the PATH to chromedriver.exe
 
     # Getting Todays Date and Month to use while filling out the form
     day = date.strftime('%d')
