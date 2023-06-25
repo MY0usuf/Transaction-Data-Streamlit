@@ -34,7 +34,7 @@ PATH = os.getcwd() + chrome_file
 @st.cache_data
 def download_transaction(base_url,download_dir,date):
     # Initialising the chrome webdriver by adding certain options 
-    chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.add_experimental_option('prefs',  {
     "download.default_directory": download_dir,
     "download.prompt_for_download": False,
