@@ -47,7 +47,7 @@ def download_transaction(base_url,download_dir,date):
     options.add_argument("--disable-notifications") # to open the window fully
     service = Service(executable_path=PATH)
     #service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options) # Initialising the driver by giving out the PATH to chromedriver.exe
+    driver = webdriver.Chrome(executable_path = PATH, options=options) # Initialising the driver by giving out the PATH to chromedriver.exe
 
     # Getting Todays Date and Month to use while filling out the form
     day = date.strftime('%d')
