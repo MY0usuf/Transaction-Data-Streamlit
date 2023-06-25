@@ -31,6 +31,10 @@ transaction_dir = os.getcwd() + '\\transaction_csv'
 
 PATH = os.getcwd() + chrome_file
 
+@st.experimental_singleton
+def get_driver(options):
+    return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+
 @st.cache_data
 def download_transaction(base_url,download_dir,date):
     # Initialising the chrome webdriver by adding certain options 
@@ -46,8 +50,9 @@ def download_transaction(base_url,download_dir,date):
     options.add_argument("--start-maximized")
     options.add_argument("--disable-notifications") # to open the window fully
     #service = Service(executable_path=PATH)
-    service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(executable_path = PATH, service=service,options=options) # Initialising the driver by giving out the PATH to chromedriver.exe
+    #service = Service(ChromeDriverManager().install())
+    #driver = webdriver.Chrome(executable_path = PATH, service=service,options=options) # Initialising the driver by giving out the PATH to chromedriver.exe
+    driver = get_driver(options)
 
     # Getting Todays Date and Month to use while filling out the form
     day = date.strftime('%d')
