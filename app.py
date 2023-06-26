@@ -14,7 +14,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
 
-
 def extract_date(filename):
     date_str = filename.split("_")[1].split(".")[0]
     return datetime.datetime.strptime(date_str, "%Y-%m-%d").date()
