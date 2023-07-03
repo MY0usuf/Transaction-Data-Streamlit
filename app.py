@@ -52,7 +52,7 @@ def get_data():
     raw_data["Amount (sq.m)"] = raw_data["Amount"] / raw_data["Property Size (sq.m)"]
     raw_data["Amount (sq.ft)"] = raw_data["Amount"] / raw_data["Property Size (sq.ft)"]
 
-    raw_data['Transaction Date'] = pd.to_datetime(raw_data['Transaction Date']).dt.normalize()
+    raw_data['Transaction Date'] = pd.to_datetime(raw_data['Transaction Date']).dt.date
 
     raw_data.sort_values(by='Transaction Date', inplace = True)
 
