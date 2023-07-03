@@ -26,22 +26,6 @@ st.markdown(
 @st.cache_data
 def get_data():
 
-    files = os.listdir('transaction_csv')
-    dates = [extract_date(filename) for filename in files if "data_" in filename]
-
-    all_dates = set(   # Using this we can search upto 2 weeks from todays date
-    datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x)
-    for x in range((datetime.date.today() - (datetime.date.today() - datetime.timedelta(weeks=2))).days)
-    )
-    
-    missing_dates = sorted(all_dates - set(dates))
-    print(len(missing_dates))
-    for date in missing_dates:
-        if date.weekday() < 5:
-            print(date.strftime("%Y-%m-%d"))
-            st.write(f'Download {date} data in the github repository')
-    
-    time.sleep(5)
     values = {'Transaction Number':0,'Transaction Date':0,'Property ID':0,'Transaction Type':'None','Transaction sub type':'None','Registration type':'None','Is Free Hold?':'None','Usage':'None','Area':'None','Property Type':'None','Property Sub Type':'None','Amount':0,'Transaction Size (sq.m)':0,'Property Size (sq.m)':0,'Property Size (sq.ft)':0,'Amount (sq.m)':0,'Amount (sq.ft)':0,'Room(s)':'None','Parking':'None','No. of Buyer':0,'No. of Seller':0,'Master Project':'None','Project':'None'}
 
     empty_list = []
@@ -79,7 +63,7 @@ def get_data():
     raw_data = raw_data
     raw_data = raw_data.applymap(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
     return raw_data.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
-    return pd.read_parquet('raw_transaction_data.parquet')
+
 
 df = get_data().reset_index(drop=True)
 
