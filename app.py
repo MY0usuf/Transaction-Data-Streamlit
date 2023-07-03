@@ -12,7 +12,6 @@ def extract_date(filename):
 transaction_dir = os.getcwd() + '\\transaction_csv'
 
 
-
 # Adjust the width of the main content area
 st.markdown(
     """
