@@ -150,5 +150,6 @@ with st.form(key='my_form', clear_on_submit = True):
         if matching_rows.empty:
             st.warning("No matching data found.")
         else:
-            st.dataframe(matching_rows,width=2000, height=None)
             st.write(average_amount_sq_ft)
+            st.dataframe(matching_rows,width=2000, height=None)
+            
