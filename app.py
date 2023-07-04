@@ -33,7 +33,7 @@ def get_data():
     for filename in os.listdir('transaction_csv'):
         if filename.endswith('.csv'):
             print(filename)
-            df = pd.read_csv(os.path.join('transaction_csv/', filename), dtype={'Property ID':int, 'Amount':float, 'Transaction Size (sq.m)':float, 'Property Size (sq.m)':float,'No. of Buyer':int, 'No. of Seller':int, 'Project':str})
+            df = pd.read_csv(os.path.join('transaction_csv/', filename), dtype={'Property ID':int,"Property Size (sq.ft)":float ,'Amount':float,"Amount (sq.m)": float, 'Transaction Size (sq.m)':float, 'Property Size (sq.m)':float,'No. of Buyer':int, 'No. of Seller':int, 'Project':str})
             df.fillna(0)
             #df = df.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
             empty_list.append(df)
