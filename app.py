@@ -66,7 +66,7 @@ def get_data():
 
 
 df = get_data().reset_index(drop=True)
-st.title('Transaction Data')
+st.header('Transaction Data')
 '# Transaction Data'
 # Forms can be declared using the 'with' syntax
 
