@@ -141,7 +141,7 @@ with st.form(key='my_form', clear_on_submit = True):
             mask &= df['Registration type'] == registration_type
 
         if start_date:
-            start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
+            #start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
             mask &= df['Transaction Date'] >= start_date
 
 
