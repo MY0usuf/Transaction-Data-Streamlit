@@ -1,0 +1,29 @@
+name: Auto Commit and Push
+
+on:
+  push:
+    paths:
+      - 'transaction_csv/*.csv'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Check out repository code
+      uses: actions/checkout@v2
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "Yousuf"
+        git config --global user.email "yousuf.musaib@gmail.com"
+
+    - name: Commit changes
+      run: |
+        git add transaction_csv/
+        git commit -m "Auto commit: new CSV file(s) added" || true
+
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
