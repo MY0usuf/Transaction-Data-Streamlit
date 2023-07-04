@@ -151,6 +151,6 @@ with st.form(key='my_form', clear_on_submit = True):
             st.warning("No matching data found.")
         else:
             st.subheader('Average Amount per Sq Ft')
-            st.write(average_amount_sq_ft)
+            st.markdown(f'**{average_amount_sq_ft}**')
             st.dataframe(matching_rows,width=2000, height=None)
             
