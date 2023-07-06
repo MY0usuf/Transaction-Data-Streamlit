@@ -4,6 +4,7 @@ import numpy as np
 import os
 import datetime
 import time
+import base64
 
 def extract_date(filename):
     date_str = filename.split("_")[1].split(".")[0]
@@ -155,4 +156,9 @@ with st.form(key='my_form', clear_on_submit = True):
             st.markdown(f'**Amount per Sq Ft:-** :green[{average_amount_sq_ft:.2f}]')
             st.markdown(f'**Property Size per Sq Ft:-** :green[{average_property_size_sq_ft:.2f}]')
             st.dataframe(matching_rows,width=2000, height=None)
-            
+
+            # Download the CSV button
+            csv_data = matching_rows.to_csv(index=False)
+            b64 = base64.b64encode(csv_data.encode()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="matching_rows.csv">Download the CSV</a>'
+            st.markdown(href, unsafe_allow_html=True)
