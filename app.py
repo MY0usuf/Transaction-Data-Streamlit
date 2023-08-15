@@ -149,12 +149,17 @@ with st.form(key='my_form', clear_on_submit = True):
         matching_rows = df[mask].reset_index(drop=True)
         average_amount_sq_ft = matching_rows['Amount (sq.ft)'].mean(axis=0)
         average_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].mean(axis=0)
+        total_amount = matching_rows['Amount'].sum()
+        total_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].sum()
         if matching_rows.empty:
             st.warning("No matching data found.")
         else:
             st.subheader('Averages')
             st.markdown(f'**Amount per Sq Ft:-** :green[{average_amount_sq_ft:.2f}]')
             st.markdown(f'**Property Size per Sq Ft:-** :green[{average_property_size_sq_ft:.2f}]')
+            st.subheader('Totals')
+            st.markdown(f'**Amount:-** :green[{total_amount:.2f}]')
+            st.markdown(f'**Property Size (Sq Ft):-** :green[{total_property_size_sq_ft:.2f}]')
             st.dataframe(matching_rows,width=2000, height=None)
 
             # Download the CSV button
