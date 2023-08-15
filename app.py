@@ -151,6 +151,8 @@ with st.form(key='my_form', clear_on_submit = True):
         average_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].mean(axis=0)
         total_amount = matching_rows['Amount'].sum()
         total_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].sum()
+        no_of_rooms = matching_rows['Room(s)'].value_counts(dropna=False)
+        no_of_rooms_dictionary = no_of_rooms.to_dict()
         if matching_rows.empty:
             st.warning("No matching data found.")
         else:
@@ -160,6 +162,8 @@ with st.form(key='my_form', clear_on_submit = True):
             st.subheader('Totals')
             st.markdown(f'**Amount:-** :green[{total_amount:.2f}]')
             st.markdown(f'**Property Size (Sq Ft):-** :green[{total_property_size_sq_ft:.2f}]')
+            for k, v in no_of_rooms_dictionary.items():
+                st.markdown(f'**No Of {k}:-** :green[{v}]')
             st.dataframe(matching_rows,width=2000, height=None)
 
             # Download the CSV button
