@@ -147,17 +147,19 @@ with st.form(key='my_form', clear_on_submit = True):
 
 
         matching_rows = df[mask].reset_index(drop=True)
-        average_amount_sq_ft = matching_rows['Amount (sq.ft)'].mean(axis=0)
+        average_amount_sq_ft_method_1 = matching_rows['Amount (sq.ft)'].mean(axis=0)
         average_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].mean(axis=0)
         total_amount = matching_rows['Amount'].sum()
         total_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].sum()
+        average_amount_sq_ft_method_2 = total_amount / total_property_size_sq_ft
         no_of_rooms = matching_rows['Room(s)'].value_counts(dropna=False)
         no_of_rooms_dictionary = no_of_rooms.to_dict()
         if matching_rows.empty:
             st.warning("No matching data found.")
         else:
             st.subheader('Averages')
-            st.markdown(f'**Amount per Sq Ft:-** :green[{average_amount_sq_ft:.2f}]')
+            st.markdown(f'**Amount per Sq Ft method 1:-** :green[{average_amount_sq_ft_method_1:.2f}]')
+            st.markdown(f'**Amount per Sq Ft method 2:-** :green[{average_amount_sq_ft_method_2:.2f}]')
             st.markdown(f'**Property Size per Sq Ft:-** :green[{average_property_size_sq_ft:.2f}]')
             st.subheader('Totals')
             st.markdown(f'**Amount:-** :green[{total_amount:.2f}]')
