@@ -119,18 +119,7 @@ with st.form(key='my_form', clear_on_submit = True):
 
         if project_area != 'All':
             if project_area == 'Sobha Hartland Phase 1':
-                mask &= df['Project'] == 'Sobha Hartland Waves Opulence'
-                mask &= df['Project'] == 'Sobha Hartland - The Crest'
-                mask &= df['Project'] == 'Sobha Creek Vistas Grande'
-                mask &= df['Project'] == 'Sobha Hartland - Crest Grande'
-                mask &= df['Project'] == 'Sobha Creek Vistas'
-                mask &= df['Project'] == 'Sobha Hartland One Park Avenue '
-                mask &= df['Project'] == 'Sobha Creek Vistas Reserve'
-                mask &= df['Project'] == 'Sobha Hartland Greens- Phase I'
-                mask &= df['Project'] == 'Sobha Hartland Greens Phase Ii'
-                mask &= df['Project'] == 'Sobha Hartland Greens - Phase Iii'
-                mask &= df['Project'] == 'Sobha Hartland Waves'
-                mask &= df['Project'] == 'Sobha Hartland Waves Grande'
+                mask = (df['Project'] == 'Sobha Hartland Waves Opulence')|(df['Project'] == 'Sobha Hartland - The Crest')|(df['Project'] == 'Sobha Creek Vistas Grande')|(df['Project'] == 'Sobha Hartland - Crest Grande')|(df['Project'] == 'Sobha Creek Vistas')|(df['Project'] == 'Sobha Hartland One Park Avenue ')|(df['Project'] == 'Sobha Creek Vistas Reserve')|(df['Project'] == 'Sobha Hartland Greens- Phase I')|(df['Project'] == 'Sobha Hartland Greens Phase Ii')|(df['Project'] == 'Sobha Hartland Greens - Phase Iii')|(df['Project'] == 'Sobha Hartland Waves')|(df['Project'] == 'Sobha Hartland Waves Grande')
                 #mask &= df['Project'] == ''
             elif project_area in projects:
                 mask &= df['Project'] == project_area
