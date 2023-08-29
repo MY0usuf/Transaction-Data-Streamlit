@@ -72,7 +72,7 @@ st.title('Transaction Data')
 # Forms can be declared using the 'with' syntax
 
 # Getting the Unique Projects,Areas from the data and adding them onto a single variable
-projects_areas = ['All','Sobha Hartland Phase 1'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
+projects_areas = ['All','Sobha Hartland Phase 1','Samana All Projects'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
 projects = df['Project'].unique()
 areas = df['Area'].unique()
 # Getting the Unique Rooms from the data
@@ -121,6 +121,8 @@ with st.form(key='my_form', clear_on_submit = True):
             if project_area == 'Sobha Hartland Phase 1':
                 mask = (df['Project'] == 'Sobha Hartland Waves Opulence')|(df['Project'] == 'Sobha Hartland - The Crest')|(df['Project'] == 'Sobha Creek Vistas Grande')|(df['Project'] == 'Sobha Hartland - Crest Grande')|(df['Project'] == 'Sobha Creek Vistas')|(df['Project'] == 'Sobha Hartland One Park Avenue ')|(df['Project'] == 'Sobha Creek Vistas Reserve')|(df['Project'] == 'Sobha Hartland Greens- Phase I')|(df['Project'] == 'Sobha Hartland Greens Phase Ii')|(df['Project'] == 'Sobha Hartland Greens - Phase Iii')|(df['Project'] == 'Sobha Hartland Waves')|(df['Project'] == 'Sobha Hartland Waves Grande')
                 #mask &= df['Project'] == ''
+            elif project_area == 'Samana All Projects':
+                mask = (df['Project'] == 'Samana Mykonos Signature')|(df['Project'] == 'Samana Mykonos')|(df['Project'] == 'Samana Waves')|(df['Project'] == 'Samana Miami')|(df['Project'] == 'Samana Hills')|(df['Project'] == 'Samana Green')|(df['Project'] == 'Samana Skyros')|(df['Project'] == 'Samana Waves 2')|(df['Project'] == 'Samana Santorini')|(df['Project'] == 'Samana Golf View')|(df['Project'] == 'Samana Park Views')|(df['Project'] == 'Samana Golf Avenue')|(df['Project'] == 'Samana Ivy Gardens')|(df['Project'] == 'Miami By Sd')
             elif project_area in projects:
                 mask &= df['Project'] == project_area
             elif project_area in areas:
