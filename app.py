@@ -157,6 +157,7 @@ with st.form(key='my_form', clear_on_submit = True):
         total_amount = matching_rows['Amount'].sum()
         total_property_size_sq_ft = matching_rows['Property Size (sq.ft)'].sum()
         average_amount_sq_ft_method_2 = total_amount / total_property_size_sq_ft
+        project_details = matching_rows['Project'].unique().tolist()
         no_of_rooms = matching_rows['Room(s)'].value_counts(dropna=False)
         no_of_rooms_dictionary = no_of_rooms.to_dict()
         if matching_rows.empty:
@@ -169,6 +170,7 @@ with st.form(key='my_form', clear_on_submit = True):
             st.subheader('Totals')
             st.markdown(f'**Amount:-** :green[{total_amount:,.2f}]')
             st.markdown(f'**Property Size (Sq Ft):-** :green[{total_property_size_sq_ft:,.2f}]')
+            st.markdown(f'**Projects:-** :green[{project_details}]')
             for k, v in no_of_rooms_dictionary.items():
                 st.markdown(f'**No Of {k}:-** :green[{v}]')
             st.dataframe(matching_rows,width=2000, height=None)
