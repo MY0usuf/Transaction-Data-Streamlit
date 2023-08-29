@@ -94,21 +94,23 @@ with st.form(key='my_form', clear_on_submit = True):
     project_area = st.selectbox('Search Project or Area', projects_areas, key='project+area')
     with st.expander("Filter"):
         c1, c2, c3, c4 = st.columns(4)
-        b1, b2, b3 = st.columns(3)
+        b1, b2, b3, b4 = st.columns(4)
         with c1:
             start_date = st.date_input('Start Date', key='start_date',value = start_date_default, max_value=datetime.datetime.today())
         with c2:
-            property_type = st.selectbox('Property Type', property_type_list, key='property_type')
+            end_date = st.date_input('End Date', key='end_date',value = datetime.datetime.today(), max_value=datetime.datetime.today())
         with c3:
-            room = st.selectbox('Room(s)', rooms, key='room')
+            property_type = st.selectbox('Property Type', property_type_list, key='property_type')
         with c4:
-            usage_type = st.selectbox('Usage',usage_type_list, key='usage_type')
+            room = st.selectbox('Room(s)', rooms, key='room')
         with b1:
             transaction_type = st.selectbox('Transaction Type', transaction_type_list, key='Transaction_type')
         with b2:
             property_sub_type = st.selectbox('Property Sub Type', property_sub_type_list, key='property_sub_type')
         with b3:
             registration_type = st.selectbox('Registration type', registration_type_list, key = 'registration type')
+        with b4:
+            usage_type = st.selectbox('Usage',usage_type_list, key='usage_type')
     
     submit_button = st.form_submit_button(label='Submit')
 
@@ -149,6 +151,9 @@ with st.form(key='my_form', clear_on_submit = True):
         if start_date:
             #start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
             mask &= df['Transaction Date'] >= start_date
+        
+        if end_date:
+            mask &= df['Transaction Date'] <= end_date
 
 
         matching_rows = df[mask].reset_index(drop=True)
