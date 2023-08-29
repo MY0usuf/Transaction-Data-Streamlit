@@ -163,12 +163,12 @@ with st.form(key='my_form', clear_on_submit = True):
             st.warning("No matching data found.")
         else:
             st.subheader('Averages')
-            st.markdown(f'**Amount per Sq Ft method 1:-** :green[{average_amount_sq_ft_method_1:.2f}]')
-            st.markdown(f'**Amount per Sq Ft method 2:-** :green[{average_amount_sq_ft_method_2:.2f}]')
-            st.markdown(f'**Property Size per Sq Ft:-** :green[{average_property_size_sq_ft:.2f}]')
+            st.markdown(f'**Amount per Sq Ft method 1:-** :green[{average_amount_sq_ft_method_1:,.2f}]')
+            st.markdown(f'**Amount per Sq Ft method 2:-** :green[{average_amount_sq_ft_method_2:,.2f}]')
+            st.markdown(f'**Property Size per Sq Ft:-** :green[{average_property_size_sq_ft:,.2f}]')
             st.subheader('Totals')
-            st.markdown(f'**Amount:-** :green[{total_amount:.2f}]')
-            st.markdown(f'**Property Size (Sq Ft):-** :green[{total_property_size_sq_ft:.2f}]')
+            st.markdown(f'**Amount:-** :green[{total_amount:,.2f}]')
+            st.markdown(f'**Property Size (Sq Ft):-** :green[{total_property_size_sq_ft:,.2f}]')
             for k, v in no_of_rooms_dictionary.items():
                 st.markdown(f'**No Of {k}:-** :green[{v}]')
             st.dataframe(matching_rows,width=2000, height=None)
