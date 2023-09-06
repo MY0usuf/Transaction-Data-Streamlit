@@ -72,7 +72,7 @@ st.title('Transaction Data')
 # Forms can be declared using the 'with' syntax
 
 # Getting the Unique Projects,Areas from the data and adding them onto a single variable
-projects_areas = ['All','Sobha Hartland Phase 1','Samana All Projects','Al furjan in area'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
+projects_areas = ['All','Sobha Hartland Phase 1','Samana All Projects','Al furjan in area','Iman Developers'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
 projects = df['Project'].unique()
 areas = df['Area'].unique()
 # Getting the Unique Rooms from the data
@@ -127,6 +127,8 @@ with st.form(key='my_form', clear_on_submit = True):
                 mask = (df['Project'] == 'Samana Mykonos Signature')|(df['Project'] == 'Samana Mykonos')|(df['Project'] == 'Samana Waves')|(df['Project'] == 'Samana Miami')|(df['Project'] == 'Samana Hills')|(df['Project'] == 'Samana Green')|(df['Project'] == 'Samana Skyros')|(df['Project'] == 'Samana Waves 2')|(df['Project'] == 'Samana Santorini')|(df['Project'] == 'Samana Golf View')|(df['Project'] == 'Samana Park Views')|(df['Project'] == 'Samana Golf Avenue')|(df['Project'] == 'Samana Ivy Gardens')|(df['Project'] == 'Miami By Sd')
             elif project_area == 'Al furjan in area':
                 mask &= df['Area'] == 'Al Furjan'
+            elif project_area == 'Iman Developers':
+                mask = (df['Project'] == 'Oxford Gardens')|(df['Project'] == 'Oxford Terraces 2')|(df['Project'] == 'Oxford Terraces')|(df['Project'] == 'Oxford 212')|(df['Project'] == 'Oxford Boulevard')|(df['Project'] == 'Oxford Residence')|(df['Project'] == 'Oxford Residence 2')|(df['Project'] == 'The Grove By Iman')
             elif project_area in projects:
                 mask &= df['Project'] == project_area
             elif project_area in areas:
