@@ -72,7 +72,7 @@ st.title('Transaction Data')
 # Forms can be declared using the 'with' syntax
 
 # Getting the Unique Projects,Areas from the data and adding them onto a single variable
-projects_areas = ['All','Sobha Hartland Phase 1','Samana All Projects','Al furjan in area','Iman Developers'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
+projects_areas = ['All','Sobha Hartland Phase 1','Samana All Projects','Al furjan in area','Iman Developers','Marquis Point Developements'] + sorted(df['Project'].unique().tolist()) + sorted(df['Area'].unique().tolist())
 projects = df['Project'].unique()
 areas = df['Area'].unique()
 # Getting the Unique Rooms from the data
@@ -129,6 +129,8 @@ with st.form(key='my_form', clear_on_submit = True):
                 mask &= df['Area'] == 'Al Furjan'
             elif project_area == 'Iman Developers':
                 mask = (df['Project'] == 'Oxford Gardens')|(df['Project'] == 'Oxford Terraces 2')|(df['Project'] == 'Oxford Terraces')|(df['Project'] == 'Oxford 212')|(df['Project'] == 'Oxford Boulevard')|(df['Project'] == 'Oxford Residence')|(df['Project'] == 'Oxford Residence 2')|(df['Project'] == 'The Grove By Iman')
+            elif project_area == 'Marquis Point Developements':
+                mask = (df['Project'] == '2020 Marquis')|(df['Project'] == 'Marquis Galleria')|(df['Project'] == 'Marquis Signature')
             elif project_area in projects:
                 mask &= df['Project'] == project_area
             elif project_area in areas:
