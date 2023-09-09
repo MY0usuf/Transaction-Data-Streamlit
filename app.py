@@ -54,6 +54,7 @@ def get_data():
     raw_data["Amount (sq.ft)"] = raw_data["Amount"] / raw_data["Property Size (sq.ft)"]
 
     raw_data['Transaction Date'] = pd.to_datetime(raw_data['Transaction Date']).dt.date
+    print(raw_data['Transaction Date'])
 
     raw_data.sort_values(by='Transaction Date', inplace = True)
 
@@ -61,7 +62,6 @@ def get_data():
 
     raw_data['Area'] = raw_data['Area'].str.title()
     raw_data['Project'] = raw_data['Project'].str.title()
-    raw_data = raw_data
     raw_data = raw_data.applymap(lambda x: round(x, 2) if isinstance(x, (int, float)) else x)
     return raw_data.drop(columns=["Nearest Metro", "Nearest Mall", "Nearest Landmark"])
 
