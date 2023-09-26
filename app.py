@@ -54,7 +54,7 @@ def get_data():
     raw_data["Amount (sq.ft)"] = raw_data["Amount"] / raw_data["Property Size (sq.ft)"]
 
     raw_data['Transaction Date'] = pd.to_datetime(raw_data['Transaction Date']).dt.date
-    print(raw_data['Transaction Date'])
+    print(type(raw_data['Transaction Date']))
 
     raw_data.sort_values(by='Transaction Date', inplace = True)
 
@@ -155,6 +155,7 @@ with st.form(key='my_form', clear_on_submit = True):
             mask &= df['Registration type'] == registration_type
 
         if start_date:
+            print(type(start_date))
             #start_date = datetime.datetime.combine(start_date, datetime.datetime.min.time())
             mask &= df['Transaction Date'] >= start_date
         
