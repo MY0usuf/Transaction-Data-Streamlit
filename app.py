@@ -88,7 +88,7 @@ registration_type_list = ['All','Ready','Off-Plan']
 # setting the usage type into a list
 usage_type_list = ['All','Residential','Commercial','Other']
 # setting the default date to 01 january 2001
-start_date_default = datetime.datetime(2001, 1, 1).date()
+start_date_default = datetime.datetime(2023, 1, 1).date()
 
 with st.form(key='my_form', clear_on_submit = True):
     project_area = st.selectbox('Search Project or Area', projects_areas, key='project+area')
