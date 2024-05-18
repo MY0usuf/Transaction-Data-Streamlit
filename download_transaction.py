@@ -103,21 +103,34 @@ base_url = 'https://dubailand.gov.ae/en/open-data/real-estate-data/#/'
 files = os.listdir(transaction_dir)
 dates = [extract_date(filename) for filename in files if "data_" in filename]
 
+'''
 all_dates = set(   # Using this we can search upto 2 weeks from todays date
     datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x)
     for x in range((datetime.date.today() - (datetime.date.today() - datetime.timedelta(weeks=2))).days + 1)
+)'''
+
+'''all_dates = set( #excludes weekends from 2 weeks before
+    (datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x))
+    for x in range((datetime.date.today() - (datetime.date.today() - datetime.timedelta(weeks=2))).days + 1)
+    if (datetime.date.today() - datetime.timedelta(weeks=2) + datetime.timedelta(days=x)).weekday() not in {5, 6}
+)'''
+
+all_dates = set( #excludes weekends from 01-01-2024
+    (datetime.date(2024, 1, 1) + datetime.timedelta(days=x))
+    for x in range((datetime.date.today() - datetime.date(2024, 1, 1)).days + 1)
+    if (datetime.date(2024, 1, 1) + datetime.timedelta(days=x)).weekday() not in {5, 6}
 )
 
-
+'''all_dates = set( #we can search from the start of the year
+    datetime.date(2024, 1, 1) + datetime.timedelta(days=x)
+    for x in range((datetime.date.today() - datetime.date(2024, 1, 1)).days)
+)
+'''
 missing_dates = sorted(all_dates - set(dates))
 print(len(missing_dates))
 for date in missing_dates:
     if date.weekday() < 5:
         print(date.strftime("%Y-%m-%d"))
         download_transaction(base_url,download_dir,date)
+        print(f'completed {date.strftime("%Y-%m-%d")}')
 
-
-'''all_dates = set( #we can search from the start of the year
-    datetime.date(2023, 1, 1) + datetime.timedelta(days=x)
-    for x in range((datetime.date.today() - datetime.date(2023, 1, 1)).days)
-)'''
