@@ -96,7 +96,7 @@ with st.form(key='my_form', clear_on_submit = True):
         c1, c2, c3, c4 = st.columns(4)
         b1, b2, b3, b4 = st.columns(4)
         with c1:
-            start_date = st.date_input('Start Date', key='start_date',value = start_date_default, max_value=datetime.datetime.today())
+            start_date = st.date_input('Start Date', key='start_date',value = start_date_default, min_value=datetime.date(2000, 1, 1), max_value=datetime.datetime.today())
         with c2:
             end_date = st.date_input('End Date', key='end_date',value = datetime.datetime.today(), max_value=datetime.datetime.today())
         with c3:
